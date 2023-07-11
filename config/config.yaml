@@ -1,0 +1,12 @@
+# Database Configuration
+database:
+  host: database
+  port: 5432
+  name: duty
+  user: root
+  password: password
+
+# Server Configuration
+server:
+  port: 8080
+  host: 0.0.0.0
