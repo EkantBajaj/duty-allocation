@@ -2,21 +2,54 @@ import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:8080'; // Replace with your backend server URL
 
-export const getSpots = () => axios.get(`${API_BASE_URL}/spots`);
+const api = axios.create({
+    baseURL: API_BASE_URL,
+});
 
-export const getActiveSpotUserCount = () => axios.get(`${API_BASE_URL}/spot-users/active-count`);
+// Function to set the user token in the Authorization header
+const setAuthToken = (token) => {
+    if (token) {
+        console.log("setting token");
+        api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    } else {
+        console.log("deleting token");
+        delete api.defaults.headers.common['Authorization'];
+    }
+};
+
+// Get the user token from local storage (if available) on app load
+const userToken = localStorage.getItem('token');
+if (userToken) {
+    setAuthToken(userToken);
+}
+console.log(userToken + " is the user token");
+
+// API requests
+export const login = (badgeID, password) => {
+    const requestData = {
+        badgeID: badgeID,
+        password: password,
+    };
+    return api.post('/users/login', requestData);
+};
+
+export const getSpots = () => api.get('/spots');
+
+export const getActiveSpotUserCount = () => api.get('/spot-users/active-count');
 
 // Get users for a spot
 export const getUsersForSpot = (spotId) => {
-    return axios.get(`${API_BASE_URL}/spot-users/active-users/${spotId}`);
+    return api.get(`/spot-users/active-users/${spotId}`);
 };
 
 // Add user to a spot
 export const addUserToSpot = (requestData) => {
-  return axios.post(`${API_BASE_URL}/spot-users`, requestData);
+    return api.post('/spot-users', requestData);
 };
 
 // Delete user from a spot
 export const deleteUserFromSpot = (userId) => {
-    return axios.put(`${API_BASE_URL}/spot-users/user/${userId}`);
+    return api.put(`/spot-users/user/${userId}`);
 };
+
+export default api;

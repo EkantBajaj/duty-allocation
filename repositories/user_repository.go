@@ -2,17 +2,23 @@ package repositories
 
 import (
 	"errors"
+	"fmt"
 	"github.com/ekantbajaj/duty-allocation/models"
+	"github.com/ekantbajaj/duty-allocation/token"
+	"github.com/spf13/viper"
 	"gorm.io/gorm"
+	"time"
 )
 
 type UserRepository struct {
-	db *gorm.DB
+	db         *gorm.DB
+	tokenMaker token.Maker
 }
 
-func NewUserRepository(db *gorm.DB) *UserRepository {
+func NewUserRepository(db *gorm.DB, token token.Maker) *UserRepository {
 	return &UserRepository{
-		db: db,
+		db:         db,
+		tokenMaker: token,
 	}
 }
 
@@ -54,9 +60,15 @@ func (r *UserRepository) GetUserByBadgeID(badgeID string) (*models.User, error) 
 	result := r.db.Where("badge_id = ?", badgeID).First(&user)
 	if result.Error != nil {
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
-			return nil, nil
+			return nil, fmt.Errorf("user not found with badge id")
 		}
 		return nil, result.Error
 	}
 	return &user, nil
+}
+
+func (r *UserRepository) CreateToken(badgeId string) (string, error) {
+	duration, _ := time.ParseDuration(viper.GetString("token.expiration_duration"))
+	accessToken, err := r.tokenMaker.CreateToken(badgeId, duration)
+	return accessToken, err
 }

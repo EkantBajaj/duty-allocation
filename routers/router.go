@@ -6,18 +6,30 @@ import (
 	"github.com/ekantbajaj/duty-allocation/middlewares"
 	"github.com/ekantbajaj/duty-allocation/repositories"
 	"github.com/ekantbajaj/duty-allocation/services"
+	"github.com/ekantbajaj/duty-allocation/token"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
+	"time"
 )
 
 func SetupRouter() *gin.Engine {
+	tokenMaker, _ := token.NewPasetoMaker(viper.GetString("token.secret"))
 	router := gin.Default()
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"}, // Change this to restrict allowed origins
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Authorization", "Content-Type", "Access-Control-Allow-Origin"},
+		ExposeHeaders:    []string{"Content-Length", "Authorization"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 	router.Use(middlewares.LoggingMiddleware())
-	router.Use(cors.Default())
+	router.Use(middlewares.AuthMiddleware(tokenMaker))
 	// create Repository
 	dbOrm := db.GetDB()
 	spotRepository := repositories.NewSpotRepository(dbOrm)
-	userRepository := repositories.NewUserRepository(dbOrm)
+	userRepository := repositories.NewUserRepository(dbOrm, tokenMaker)
 	spotUserRepository := repositories.NewSpotUserRepository(dbOrm)
 
 	// Create services

@@ -3,6 +3,8 @@ import { getUsersForSpot, addUserToSpot, deleteUserFromSpot } from '../services/
 import {useParams} from "react-router-dom";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Header from "../components/Header";
+
 
 const SpotUsers = ({ spot }) => {
   const [users, setUsers] = useState([]);
@@ -55,6 +57,7 @@ const SpotUsers = ({ spot }) => {
 
     return (
         <div>
+            <Header />
             <h2>Users for Spot: {params.name}</h2>
             <div>
                 <input

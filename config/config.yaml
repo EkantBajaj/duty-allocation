@@ -1,7 +1,7 @@
 # Database Configuration
 database:
   host: database
-  port: 5433
+  port: 5432
   name: duty
   user: root
   password: password
@@ -10,3 +10,8 @@ database:
 server:
   port: 8080
   host: 0.0.0.0
+
+# token secret
+token:
+  secret: secretwalajfljvlejlvkljalbjvssss
+  expiration_duration: 1h

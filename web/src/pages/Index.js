@@ -3,6 +3,7 @@ import Spot from '../components/Spot';
 import {useNavigate} from 'react-router-dom';
 import { getSpots, getActiveSpotUserCount } from '../services/api';
 import '../index.css'
+import Header from "../components/Header";
 import SpotUsers from "./SpotUsers";
 const Index = () => {
     const [spots, setSpots] = useState([]);
@@ -28,6 +29,7 @@ const Index = () => {
 
     return (
         <div>
+            <Header />
             <h1>Spots</h1>
             <table>
                 <thead>

@@ -25,8 +25,7 @@ func main() {
 		log.Fatalf("Failed to initialize database connection: %v", err)
 	}
 
-	// Create repositories
-
+	// create go-admin engine
 	// Create handlers
 
 	// Initialize the HTTP server

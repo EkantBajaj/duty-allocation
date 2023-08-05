@@ -12,6 +12,7 @@ type UserService interface {
 	UpdateUser(user *models.User) error
 	DeleteUser(id uint) error
 	GetUserByBadgeId(badgeId string) (*models.User, error)
+	CreateToken(badgeId string) (string, error)
 }
 
 type userService struct {
@@ -61,4 +62,13 @@ func (s *userService) GetUserByBadgeId(badgeId string) (*models.User, error) {
 		return nil, err
 	}
 	return user, nil
+}
+
+func (s *userService) CreateToken(badgeId string) (string, error) {
+	token, err := s.userRepository.CreateToken(badgeId)
+	if err != nil {
+		return "", err
+	}
+	return token, nil
+
 }
