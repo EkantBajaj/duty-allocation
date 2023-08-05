@@ -86,6 +86,10 @@ const SpotUsers = ({ spot }) => {
                 <th>BadgeId</th>
                 <th>Gender</th>
                 <th>Initiated</th>
+                <th>Contact</th>
+                <th>Emergency Contact</th>
+                <th>In Time</th>
+                <th>Out Time</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -96,6 +100,10 @@ const SpotUsers = ({ spot }) => {
                         <td>{user.BadgeID}</td>
                         <td>{user.Gender}</td>
                         <td>{user.Initiated ? "Yes" : "No"}</td>
+                        <td>{user.MobileNumber}</td>
+                        <td>{user.EmergencyNumber}</td>
+                        <td>{user.InTimeString}</td>
+                        <td>{user.OutTimeString}</td>
                         <td><button onClick={() => handleDeleteUser(user.ID)}>Delete User</button></td>
 
                     </tr>

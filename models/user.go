@@ -40,9 +40,15 @@ type User struct {
 }
 
 type ActiveUsersBySpotID struct {
-	ID        uint
-	Name      string
-	Gender    string
-	BadgeID   string `gorm:"unique"`
-	Initiated bool
+	ID              uint
+	Name            string
+	Gender          string
+	BadgeID         string `gorm:"unique"`
+	MobileNumber    string `gorm:"unique"`
+	EmergencyNumber string
+	Initiated       bool
+	InTime          time.Time
+	OutTime         time.Time
+	InTimeString    string // Formatted time string for InTime
+	OutTimeString   string
 }

@@ -46,12 +46,17 @@ func (sur *SpotUserRepository) GetActiveUsersBySpotID(spotID uint) ([]models.Act
 
 	err := sur.db.
 		Model(&models.User{}).
-		Select("users.id, name, gender, badge_id, initiated").
+		Select("users.id, name, gender, badge_id, initiated,spot_users.in_time, spot_users.out_time, users.mobile_number,users.emergency_number").
 		Joins("JOIN spot_users ON spot_users.user_id = users.id").
 		Where("spot_users.spot_id = ? AND spot_users.active = ?", spotID, true).
 		Scan(&users).Error
 	if err != nil {
 		return nil, err
+	}
+
+	for i := range users {
+		users[i].InTimeString = users[i].InTime.Format("15:04:05")   // Customize the time format as needed
+		users[i].OutTimeString = users[i].OutTime.Format("15:04:05") // Customize the time format as needed
 	}
 
 	return users, nil
