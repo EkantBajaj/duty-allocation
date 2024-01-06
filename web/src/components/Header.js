@@ -16,7 +16,10 @@ const Header = () => {
             <Link to="/">
                 <img src="/rssb-logo.jpeg" alt="Home" className="logo-image" />
             </Link>
-
+             {/* Create User button */}
+            <Link to="/create-user" className="create-user-button">
+                Create User
+            </Link>
             {/* Logout button */}
             <button onClick={handleLogout} className="logout-button">
                 Logout

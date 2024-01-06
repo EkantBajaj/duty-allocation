@@ -25,7 +25,7 @@ func SetupRouter() *gin.Engine {
 		MaxAge:           12 * time.Hour,
 	}))
 	router.Use(middlewares.LoggingMiddleware())
-	router.Use(middlewares.AuthMiddleware(tokenMaker))
+	// router.Use(middlewares.AuthMiddleware(tokenMaker))
 	// create Repository
 	dbOrm := db.GetDB()
 	spotRepository := repositories.NewSpotRepository(dbOrm)

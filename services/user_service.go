@@ -1,8 +1,11 @@
 package services
 
 import (
+	"errors"
+
 	"github.com/ekantbajaj/duty-allocation/models"
 	"github.com/ekantbajaj/duty-allocation/repositories"
+	"github.com/ekantbajaj/duty-allocation/util"
 )
 
 type UserService interface {
@@ -42,7 +45,16 @@ func (s *userService) GetUserByMobileNumber(mobileNumber string) (*models.User, 
 }
 
 func (s *userService) CreateUser(user *models.User) error {
-	err := s.userRepository.CreateUser(user)
+	var err error
+	user.Password, err = util.HashPassword(user.Password)
+	if err != nil {
+		return errors.New("Failed to hash password")
+	}
+	// check if badge id is empty then make it first four digit of mobile number followed by last four digit of aadhar number
+	if user.BadgeID == "" {
+		user.BadgeID = user.MobileNumber[0:4] + user.AadharNumber[len(user.AadharNumber)-4:]
+	}
+	err = s.userRepository.CreateUser(user)
 	return err
 }
 

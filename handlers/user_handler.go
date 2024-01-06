@@ -62,7 +62,7 @@ func (uh *UserHandler) GetUserByID(c *gin.Context) {
 
 func (uh *UserHandler) LoginUser(c *gin.Context) {
 	// Get the badge ID and password from the request body
-	var user *models.User
+	var user *models.Login
 	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
 		return

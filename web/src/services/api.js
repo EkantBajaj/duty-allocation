@@ -27,7 +27,7 @@ console.log(userToken + " is the user token");
 // API requests
 export const login = (badgeID, password) => {
     const requestData = {
-        badgeID: badgeID,
+        badge_id: badgeID,
         password: password,
     };
     return api.post('/users/login', requestData);
@@ -50,6 +50,17 @@ export const addUserToSpot = (requestData) => {
 // Delete user from a spot
 export const deleteUserFromSpot = (userId) => {
     return api.put(`/spot-users/user/${userId}`);
+};
+
+// Create user API endpoint
+export const createUser = async (userData) => {
+    try {
+        const response = await api.post('/users', userData);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Failed to create user');
+    }
 };
 
 export default api;
