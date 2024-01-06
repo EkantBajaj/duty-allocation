@@ -24,12 +24,6 @@ func (uh *UserHandler) CreateUser(c *gin.Context) {
 		return
 	}
 	var err error
-	user.Password, err = util.HashPassword(user.Password)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to hash password"})
-		return
-	}
-
 	err = uh.userService.CreateUser(&user)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user"})
