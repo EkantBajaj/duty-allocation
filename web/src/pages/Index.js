@@ -10,6 +10,20 @@ const Index = () => {
     const [spotUserCounts, setSpotUserCounts] = useState([]);
     const [selectedSpot, setSelectedSpot] = useState(null);
     const navigate = useNavigate();
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleDateString('en-US');
+    const currentDayName = currentDate.toLocaleDateString('en-US', { weekday: 'long' });
+    const InchargeDayMapping = {
+        0: 'Om Pal', // Sunday
+        1: 'Deepak Makkar', // Monday
+        2: 'Pappu Ji', // Tuesday
+        3: 'Brijesh Kumar', // Wednesday
+        4: 'Vipin Bhandari', // Thursday
+        5: 'Rupak Yadav', // Friday
+        6: 'Rohit Khera', // Saturday
+    };
+    const currentDay = currentDate.getDay();
+    const currentPerson = InchargeDayMapping[currentDay];
 
     useEffect(() => {
         // Fetch spots
@@ -30,14 +44,19 @@ const Index = () => {
     return (
         <div>
             <Header />
-            <h1>Spots</h1>
-            <table>
+            <div className='responsive-text' style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <h1>Sewadars Deployment Summary - Security Department</h1>
+            <h2>{`${formattedDate}, ${currentDayName}, ${currentPerson}`}</h2>
+        </div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <p><a href="/create-user" className="create-user-button"> New Sewadar</a></p>
+            </div>
+            <table className='responsive-table'>
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Total People</th>
-                    <th>Min People</th>
-                    <th>User Count</th>
+                    <th>Sewa Point</th>
+                    <th>Minimum Sewadars Required</th>
+                    <th>Sewadars Deployed</th>
                 </tr>
                 </thead>
                 <tbody>

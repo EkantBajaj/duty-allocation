@@ -12,6 +12,10 @@ const SpotUsers = ({ spot }) => {
   const [newOutTime, setNewOutTime] = useState(null);
   const [error, setError] = useState(null);
   const params = useParams();
+  const currentDate = new Date();
+  const nextDate = new Date();
+  nextDate.setDate(currentDate.getDate() + 1);
+  currentDate.setHours(currentDate.getHours() + 1);
 
   useEffect(() => {
     // Fetch users for the spot
@@ -58,13 +62,15 @@ const SpotUsers = ({ spot }) => {
     return (
         <div>
             <Header />
-            <h2>Users for Spot: {params.name}</h2>
-            <div>
+            <h1 style={{ display: 'flex', justifyContent: 'space-between' }}>Sewa Point: {params.name}</h1>
+            <div className='responsive-text'>
+              <p>
                 <input
                     type="text"
-                    placeholder="Enter badge ID"
+                    placeholder="Badge ID"
                     value={newBadgeID}
                     onChange={(e) => setNewBadgeID(e.target.value)}
+                    style={{ fontSize: '1.5em' }}
                 />
                 <DatePicker
                     selected={newOutTime}
@@ -75,22 +81,28 @@ const SpotUsers = ({ spot }) => {
                     timeCaption="Time"
                     dateFormat="yyyy-MM-dd HH:mm"
                     placeholderText="Select out time"
+                    className='date-picker'
+                    minDate={currentDate}
+                    maxDate={nextDate}
+                    filterTime={(time) => {
+                      const currentTime = new Date();
+                      // Only enable times that are later than the current time
+                      return time.getTime() > currentTime.getTime();
+                  }}
                 />
-                <button onClick={handleAddUser}>Add User</button>
-            </div>
+                <button onClick={handleAddUser} style={{ fontSize: '1.5em' }}>Check In</button>
+            </p></div>
             {error && <div className="error">{error}</div>}
-            <table>
+            <table className='responsive-table'>
             <thead>
             <tr>
                 <th>Name</th>
                 <th>BadgeId</th>
                 <th>Gender</th>
-                <th>Initiated</th>
                 <th>Contact</th>
-                <th>Emergency Contact</th>
                 <th>In Time</th>
                 <th>Out Time</th>
-                <th>Action</th>
+                <th>Check Out</th>
             </tr>
             </thead>
             <tbody>
@@ -99,12 +111,10 @@ const SpotUsers = ({ spot }) => {
                         <td>{user.Name}</td>
                         <td>{user.BadgeID}</td>
                         <td>{user.Gender}</td>
-                        <td>{user.Initiated ? "Yes" : "No"}</td>
                         <td>{user.MobileNumber}</td>
-                        <td>{user.EmergencyNumber}</td>
                         <td>{user.InTimeString}</td>
                         <td>{user.OutTimeString}</td>
-                        <td><button onClick={() => handleDeleteUser(user.ID)}>Delete User</button></td>
+                        <td><button className='responsive-text' onClick={() => handleDeleteUser(user.ID)}>Check Out</button></td>
 
                     </tr>
                 ))}

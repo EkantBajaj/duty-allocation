@@ -5,11 +5,12 @@
     padding: 10px;
     background-color: #f9f9f9;
     border-bottom: 1px solid #ccc;
+    font-size: 1.5em;
 }
 
 .logo-image {
-    width: 40px;
-    height: 40px;
+    width: 100px;
+    height: 100px;
     margin-right: 10px;
 }
 
@@ -37,4 +38,90 @@
 
 .create-user-button:hover {
     background-color: #3e8e41;
+}
+
+.responsive-text {
+    font-size: 1em; /* Default font size for large screens */
+}
+
+/* When the screen size is 768px or less, decrease the font size */
+@media screen and (max-width: 768px) {
+    .responsive-text {
+        font-size: 0.5em;
+    }
+}
+
+/* When the screen size is 480px or less, decrease the font size even more */
+@media screen and (max-width: 480px) {
+    .responsive-text {
+        font-size: 0.2em;
+    }
+}
+.responsive-text {
+    font-size: 1em; /* Default font size for large screens */
+}
+
+/* When the screen size is 768px or less, decrease the font size */
+@media screen and (max-width: 768px) {
+    .responsive-text {
+        font-size: 0.8em;
+    }
+}
+
+/* When the screen size is 480px or less, decrease the font size even more */
+@media screen and (max-width: 480px) {
+    .responsive-text {
+        font-size: 0.5em;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        font-size: 0.8em;
+    }
+}
+
+/* When the screen size is 480px or less, decrease the font size even more */
+@media screen and (max-width: 480px) {
+    .header {
+        font-size: 0.5em;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .logo-image {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+/* When the screen size is 480px or less, decrease the font size even more */
+@media screen and (max-width: 480px) {
+    .logo-image {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.date-picker {
+    font-size: 1.5em;
+}
+
+.responsive-table {
+    font-size: 2em; /* Default font size for large screens */
+    width: 100%; /* Make the table width 100% to make it responsive */
+}
+
+/* When the screen size is 768px or less, decrease the font size */
+@media screen and (max-width: 768px) {
+    .responsive-table {
+        font-size: 1.5em;
+    }
+}
+
+/* When the screen size is 480px or less, decrease the font size even more */
+@media screen and (max-width: 480px) {
+    .responsive-table {
+        font-size: 1em;
+    }
 }

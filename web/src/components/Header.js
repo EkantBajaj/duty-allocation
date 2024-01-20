@@ -16,10 +16,7 @@ const Header = () => {
             <Link to="/">
                 <img src="/rssb-logo.jpeg" alt="Home" className="logo-image" />
             </Link>
-             {/* Create User button */}
-            <Link to="/create-user" className="create-user-button">
-                Create User
-            </Link>
+            <h1>Radha Soami Satsang Beas- Saharanpur Major Center</h1>
             {/* Logout button */}
             <button onClick={handleLogout} className="logout-button">
                 Logout

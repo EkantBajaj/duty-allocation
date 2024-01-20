@@ -1,7 +1,7 @@
 # Database Configuration
 database:
-  host: database
-  port: 5432
+  host: localhost
+  port: 5433
   name: duty
   user: root
   password: password

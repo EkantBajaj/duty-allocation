@@ -23,7 +23,7 @@ type User struct {
 	Profession      string `json:"profession" binding:"required"`
 	MaritalStatus   string `json:"marital_status" binding:"required"`
 	BloodGroup      string `json:"blood_group" binding:"required"`
-	Department      string `json:"department" binding:"required"`
+	Department      string `json:"department"`
 	AadharNumber    string `json:"aadhar_number" binding:"required"`
 	ZoneBadgeID     string `json:"zone_badge_id"`
 	ZoneDepartment  string `json:"zone_department"`
