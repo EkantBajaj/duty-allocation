@@ -31,16 +31,19 @@ func SetupRouter() *gin.Engine {
 	spotRepository := repositories.NewSpotRepository(dbOrm)
 	userRepository := repositories.NewUserRepository(dbOrm, tokenMaker)
 	spotUserRepository := repositories.NewSpotUserRepository(dbOrm)
+	gateRepository := repositories.NewGateRepository(dbOrm)
 
 	// Create services
 	spotService := services.NewSpotService(spotRepository)
 	userService := services.NewUserService(userRepository)
 	spotUserService := services.NewSpotUserService(spotUserRepository)
+	gateService := services.NewGateService(gateRepository)
 
 	//Create Handlers
 	userHandler := handlers.NewUserHandler(userService)
 	spotHandler := handlers.NewSpotHandler(spotService)
 	spotUserHandler := handlers.NewSpotUserHandler(spotUserService, userService)
+	gateHandler := handlers.NewGateHandler(gateService)
 	// Spot routes
 	spotRouter := SpotRouter{Handler: spotHandler}
 	spotRouter.SetupRoutes(router)
@@ -57,6 +60,12 @@ func SetupRouter() *gin.Engine {
 		Handler: spotUserHandler,
 	}
 	spotUserRouter.SetupRoutes(router)
+
+	// Gate routes
+	gateRouter := GateRouter{
+		Handler: gateHandler,
+	}
+	gateRouter.SetupRoutes(router)
 
 	// Add more routers for other functionalities
 

@@ -2,15 +2,17 @@ package main
 
 import (
 	"fmt"
-	"github.com/ekantbajaj/duty-allocation/config"
-	"github.com/ekantbajaj/duty-allocation/db"
-	"github.com/ekantbajaj/duty-allocation/routers"
-	"github.com/spf13/viper"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/ekantbajaj/duty-allocation/config"
+	"github.com/ekantbajaj/duty-allocation/db"
+	"github.com/ekantbajaj/duty-allocation/routers"
+	"github.com/gin-contrib/cors"
+	"github.com/spf13/viper"
 )
 
 func main() {
@@ -30,6 +32,9 @@ func main() {
 
 	// Initialize the HTTP server
 	router := routers.SetupRouter()
+	config := cors.DefaultConfig()
+	config.AllowAllOrigins = true
+	router.Use(cors.New(config))
 
 	// Register routes
 

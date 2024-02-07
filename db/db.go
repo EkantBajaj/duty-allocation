@@ -56,7 +56,10 @@ func Close() {
 
 // runMigrations runs the database migrations.
 func runMigrations() error {
-	err := db.AutoMigrate(&models.Spot{}, &models.User{}, &models.SpotUser{}, &models.Role{})
+	err := db.AutoMigrate(&models.Spot{}, &models.User{},
+		&models.SpotUser{}, &models.Role{},
+		&models.Gate{},&models.GateEntry{},
+		&models.GateCount{})
 	if err != nil {
 		return err
 	}

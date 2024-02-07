@@ -17,6 +17,12 @@ const Header = () => {
                 <img src="/rssb-logo.jpeg" alt="Home" className="logo-image" />
             </Link>
             <h1>Radha Soami Satsang Beas- Saharanpur Major Center</h1>
+            {/* Entry/Exit Form button */}
+        <   Link to="/entry-exit-form">
+            <button className="entry-exit-form-button">
+                Gate Entry
+            </button>
+        </Link>
             {/* Logout button */}
             <button onClick={handleLogout} className="logout-button">
                 Logout

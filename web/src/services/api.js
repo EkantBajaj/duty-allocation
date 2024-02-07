@@ -63,4 +63,45 @@ export const createUser = async (userData) => {
     }
 };
 
+// Get gates API endpoint
+export const getGates = async () => {
+    try {
+      const response = await api.get('/gate/');
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to get gates');
+    }
+  };
+
+  export const postEntryExit = async (payload) => {
+    try {
+      const response = await api.post('/gate/entry', payload);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to post entry/exit');
+    }
+  };
+
+  export const fetchTotalCount = async () => {
+    try {
+      const response = await api.get('/gate/total');
+      return response.data.count;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to get total count');
+    }
+  };
+
+  export const fetchGateCounts = async () => {
+    try {
+      const response = await api.get('/gate/count');
+      return response.data.map(item => ({ gate: item.name, count: item.count }));
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to get gate counts');
+    }
+  };
+
 export default api;

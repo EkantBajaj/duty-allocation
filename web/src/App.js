@@ -3,6 +3,7 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import Index from './pages/Index';
 import SpotUsers from './pages/SpotUsers';
 import  CreateUser  from './pages/CreateUser';
+import  EntryExitForm from './pages/Entry';
 import Login from './pages/Login';
 const App = () => {
     const [userToken, setUserToken] = useState(localStorage.getItem('token') || '');
@@ -32,6 +33,7 @@ const App = () => {
                     )}
                     <Route path="/user/:id/:name" element={<SpotUsers />} />
                     <Route path="/create-user" element={<CreateUser />} />
+                    <Route path="/entry-exit-form" element={<EntryExitForm />} />
                 </Routes>
             </BrowserRouter>
         </div>
